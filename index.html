@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CTXL's Profile</title>
+    <link rel="icon" href="assets/favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="profile-container">
+      <!-- Nút chuyển đổi Sáng/Tối -->
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+          <input type="checkbox" id="checkbox" />
+          <div class="slider"></div>
+        </label>
+      </div>
+
+      <img src="assets/favicon.png" alt="Avatar" class="avatar" />
+
+      <h1 class="name">Trần Công Thành (CTXL)</h1>
+      <p class="bio" id="bio-text">
+        Xin chào! Đây là trang cá nhân của mình. Kết nối với mình qua các nền
+        tảng bên dưới nhé.
+      </p>
+
+      <div class="links-container">
+        <a
+          href="https://www.facebook.com/ctxamlam"
+          target="_blank"
+          class="link-btn hover-fb"
+        >
+          <i class="fa-brands fa-facebook link-icon"></i> Facebook
+        </a>
+
+        <a
+          href="https://instagram.com/ctxamlam"
+          target="_blank"
+          class="link-btn hover-ig"
+        >
+          <i class="fa-brands fa-instagram link-icon"></i> Instagram
+        </a>
+
+        <a
+          href="https://www.threads.com/@ctxamlam"
+          target="_blank"
+          class="link-btn hover-threads"
+        >
+          <i class="fa-brands fa-threads link-icon"></i> Threads
+        </a>
+
+        <a
+          href="https://x.com/CTXL1029"
+          target="_blank"
+          class="link-btn hover-x"
+        >
+          <i class="fa-brands fa-x-twitter link-icon"></i> X (Twitter)
+        </a>
+
+        <a
+          href="https://github.com/CTXL1029"
+          target="_blank"
+          class="link-btn hover-gh"
+        >
+          <i class="fa-brands fa-github link-icon"></i> GitHub
+        </a>
+
+        <a
+          href="https://youtube.com/@ctxl1029"
+          target="_blank"
+          class="link-btn hover-yt"
+        >
+          <i class="fa-brands fa-youtube link-icon"></i> YouTube
+        </a>
+
+        <a
+          href="https://www.tiktok.com/@ctxl_ctxl"
+          target="_blank"
+          class="link-btn hover-tt"
+        >
+          <i class="fa-brands fa-tiktok link-icon"></i> TikTok
+        </a>
+
+        <!-- Nút Zalo -->
+        <a
+          href="https://zaloapp.com/qr/p/1rjjkhxxew74q"
+          target="_blank"
+          class="link-btn hover-zl"
+          id="zalo-btn"
+        >
+          <img
+            src="assets/zalo.png"
+            alt="Zalo"
+            class="link-icon"
+            style="width: 24px; height: 24px; object-fit: contain"
+          />
+          Zalo
+        </a>
+
+        <!-- Nút Số điện thoại -->
+        <button
+          id="button"
+          onclick="contact()"
+          class="link-btn hover-phone"
+          style="
+            cursor: pointer;
+            font-family: &quot;Mulish&quot;, sans-serif;
+            outline: none;
+          "
+        >
+          <i class="fa-solid fa-phone link-icon"></i>
+          <span id="phone-text">Số Điện Thoại</span>
+        </button>
+      </div>
+
+      <div class="footer" id="footer-text">© 2026 Trần Công Thành (CTXL).</div>
+    </div>
+
+    <!-- Modal Zalo QR -->
+    <div id="zalo-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeZalo()">&times;</span>
+        <img src="assets/qr-zalo.png" alt="QR Zalo" />
+        <div class="modal-title" id="zalo-modal-text">
+          Quét mã QR để kết nối
+        </div>
+      </div>
+    </div>
+
+    <!-- Script điều khiển Theme, Ngôn ngữ, và Zalo Popup -->
+    <script>
+      // 1. Tự động nhận diện Theme Sáng/Tối
+      const toggleSwitch = document.querySelector("#checkbox");
+      const prefersDarkScheme = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      );
+      const currentTheme = localStorage.getItem("theme");
+
+      if (currentTheme) {
+        document.documentElement.setAttribute("data-theme", currentTheme);
+        if (currentTheme === "dark") {
+          toggleSwitch.checked = true;
+        }
+      } else if (prefersDarkScheme.matches) {
+        document.documentElement.setAttribute("data-theme", "dark");
+        toggleSwitch.checked = true;
+      }
+
+      toggleSwitch.addEventListener("change", function (e) {
+        if (e.target.checked) {
+          document.documentElement.setAttribute("data-theme", "dark");
+          localStorage.setItem("theme", "dark");
+        } else {
+          document.documentElement.setAttribute("data-theme", "light");
+          localStorage.setItem("theme", "light");
+        }
+      });
+
+      // 2. Nhận diện ngôn ngữ trình duyệt (Tiếng Việt / Tiếng Anh)
+      const userLang = navigator.language || navigator.userLanguage;
+      const isVietnamese = userLang.toLowerCase().includes("vi");
+      window.appLanguage = isVietnamese ? "vi" : "en"; // Lưu biến toàn cục cho contact.js dùng
+
+      const dict = {
+        vi: {
+          bio: "Xin chào! Đây là trang cá nhân của mình. Kết nối với mình qua các nền tảng bên dưới nhé.",
+          phone: "Số Điện Thoại",
+          footer: "© 2026 Trần Công Thành (CTXL).",
+          zaloModal: "Quét mã QR để kết nối",
+        },
+        en: {
+          bio: "Hello! This is my personal page. Connect with me via the platforms below.",
+          phone: "Phone Number",
+          footer: "© 2026 Tran Cong Thanh (CTXL).",
+          zaloModal: "Scan QR code to connect",
+        },
+      };
+
+      if (!isVietnamese) {
+        document.getElementById("bio-text").innerText = dict.en.bio;
+        document.getElementById("phone-text").innerText = dict.en.phone;
+        document.getElementById("footer-text").innerText = dict.en.footer;
+        document.getElementById("zalo-modal-text").innerText =
+          dict.en.zaloModal;
+      }
+
+      // 3. Xử lý logic Zalo Popup trên Desktop
+      const zaloBtn = document.getElementById("zalo-btn");
+      const zaloModal = document.getElementById("zalo-modal");
+
+      zaloBtn.addEventListener("click", function (e) {
+        // Kiểm tra nếu là Desktop (chiều rộng màn hình > 768px)
+        if (window.innerWidth > 768) {
+          e.preventDefault(); // Ngăn mở link
+          zaloModal.style.display = "flex";
+        }
+      });
+
+      function closeZalo() {
+        zaloModal.style.display = "none";
+      }
+
+      window.onclick = function (event) {
+        if (event.target == zaloModal) {
+          zaloModal.style.display = "none";
+        }
+      };
+    </script>
+    <script src="contact.js"></script>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Biến màu sắc cho Light/Dark Theme */
+:root {
+  --bg-color: #f5f7fa;
+  --text-main: #1a1a1a;
+  --text-bio: #666;
+  --text-footer: #999;
+  --card-bg: #fff;
+  --border-color: #eaeaea;
+  --icon-default: #000; /* Màu cho X, Threads, Github, Tiktok */
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-main: #ffffff;
+  --text-bio: #cccccc;
+  --text-footer: #777777;
+  --card-bg: #1e1e1e;
+  --border-color: #333333;
+  --icon-default: #ffffff;
+}
+
+body {
+  font-family: "Mulish", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 50px 20px;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+.profile-container {
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  position: relative;
+}
+
+/* Nút gạt Dark/Light Mode */
+.theme-switch-wrapper {
+  position: absolute;
+  top: -30px;
+  right: 0;
+  display: flex;
+  align-items: center;
+}
+.theme-switch {
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  position: relative;
+}
+.theme-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+.slider:before {
+  position: absolute;
+  content: "☀️";
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: #ccc;
+}
+input:checked + .slider:before {
+  transform: translateX(24px);
+  content: "🌙";
+}
+
+/* Avatar */
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 4px solid var(--card-bg);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.4s ease;
+}
+
+/* Thông tin cá nhân */
+.name {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: var(--text-main);
+  transition: color 0.4s ease;
+}
+.bio {
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--text-bio);
+  margin-bottom: 30px;
+  line-height: 1.5;
+  transition: color 0.4s ease;
+}
+
+/* Danh sách Link */
+.links-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.link-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  padding: 16px 20px;
+  background-color: var(--card-bg);
+  color: var(--text-main);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+}
+.link-btn:hover {
+  transform: translateY(-3px);
+  background-color: var(--card-bg);
+}
+.link-icon {
+  position: absolute;
+  left: 20px;
+  font-size: 22px;
+  transition: color 0.4s ease;
+}
+
+/* Hiệu ứng bóng (Glow) và đổi màu viền khi hover */
+.hover-fb:hover {
+  box-shadow: 0 5px 20px rgba(24, 119, 242, 0.4);
+  border-color: #1877f2;
+  color: #1877f2;
+}
+.hover-ig:hover {
+  box-shadow: 0 5px 20px rgba(228, 64, 95, 0.4);
+  border-color: #e4405f;
+  color: #e4405f;
+}
+.hover-threads:hover {
+  box-shadow: 0 5px 20px rgba(128, 128, 128, 0.4);
+  border-color: var(--icon-default);
+  color: var(--icon-default);
+}
+.hover-x:hover {
+  box-shadow: 0 5px 20px rgba(128, 128, 128, 0.4);
+  border-color: var(--icon-default);
+  color: var(--icon-default);
+}
+.hover-gh:hover {
+  box-shadow: 0 5px 20px rgba(128, 128, 128, 0.4);
+  border-color: var(--icon-default);
+  color: var(--icon-default);
+}
+.hover-yt:hover {
+  box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
+  border-color: #ff0000;
+  color: #ff0000;
+}
+.hover-tt:hover {
+  box-shadow: 0 5px 20px rgba(128, 128, 128, 0.4);
+  border-color: var(--icon-default);
+  color: var(--icon-default);
+}
+.hover-zl:hover {
+  box-shadow: 0 5px 20px rgba(0, 104, 255, 0.4);
+  border-color: #0068ff;
+  color: #0068ff;
+}
+.hover-phone:hover {
+  box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4);
+  border-color: #28a745;
+  color: #28a745;
+}
+
+/* Màu sắc icon */
+.fa-facebook {
+  color: #1877f2;
+}
+.fa-instagram {
+  color: #e4405f;
+}
+.fa-threads,
+.fa-x-twitter,
+.fa-github,
+.fa-tiktok {
+  color: var(--icon-default);
+}
+.fa-youtube {
+  color: #ff0000;
+}
+.fa-phone {
+  color: #28a745;
+}
+
+/* Popup Zalo (Modal) */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.3s ease;
+}
+.modal-content {
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  position: relative;
+  max-width: 320px;
+  border: 1px solid var(--border-color);
+}
+.modal-content img {
+  width: 100%;
+  border-radius: 10px;
+}
+.modal-title {
+  color: var(--text-main);
+  margin-top: 10px;
+  font-weight: 700;
+}
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: var(--text-bio);
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Chân trang */
+.footer {
+  margin-top: 40px;
+  font-size: 13px;
+  color: var(--text-footer);
+  font-weight: 600;
+  transition: color 0.4s ease;
+}
